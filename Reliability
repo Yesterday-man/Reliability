@@ -1,5 +1,5 @@
-#include <iostream>
-#include<math.h>
+#include <stdio.h>
+#include <math.h>
 #define L 4
 #define N 5
 
@@ -27,21 +27,21 @@ int main() {
         Reliability_probability[N] = { 0.5,0.9,0.8,0.7,0.6 },
         credibility_probability = 0, probability_matrix[32];
 
-  for (i = 0; i < 32; i++) {//初期化
+  for (i = 0; i < m; i++) {//初期化
         probability_matrix[i] = 1;
     }
 
-  for(i=0;i<32;i++){
+  for(i=0;i<m;i++){
     decimal=i;
-    for(j=5-1;j>=0;j--){
+    for(j=N-1;j>=0;j--){
       x[i][j]=decimal%2;
       decimal=decimal/2; 
     } 
   }
 
-  for(i=0;i<32;i++){
+  /*for(i=0;i<m;i++){
     printf("[%d]",i);
-    for(j=0;j<5;j++){
+    for(j=0;j<N;j++){
       printf("%0.0f",x[i][j]);
     }
     printf("\n");
@@ -49,16 +49,16 @@ int main() {
   
   printf("\n\n");
 
-  for(i=0;i<4;i++){
-    for(j=0;j<5;j++){
+  for(i=0;i<L;i++){
+    for(j=0;j<N;j++){
       printf("%0.0f",incidence_matrix[i][j]);
     }
     printf("\n");
-  }
+  }*/
 
-  for(i=0;i<32;i++){
+  for(i=0;i<m;i++){
         if(x[i][0]==incidence_matrix[0][0] && x[i][2]==incidence_matrix[0][2]){
-          for(j=0;j<5;j++){
+          for(j=0;j<N;j++){
           link_ok[i][j]=x[i][j]*Reliability_probability[j];
           if(link_ok[i][j]==0){
             link_ok[i][j]=1-Reliability_probability[j];
@@ -66,7 +66,7 @@ int main() {
         }
           }
         else if(x[i][0]==incidence_matrix[1][0] && x[i][3]==incidence_matrix[1][3] && x[i][4]==incidence_matrix[1][4]){
-         for(j=0;j<5;j++){
+         for(j=0;j<N;j++){
             link_ok[i][j]=x[i][j]*Reliability_probability[j];
           if(link_ok[i][j]==0){
             link_ok[i][j]=1-Reliability_probability[j];
@@ -74,7 +74,7 @@ int main() {
         }
           }
         else if(x[i][1]==incidence_matrix[2][1]&& x[i][3]==incidence_matrix[2][3]){
-           for(j=0;j<5;j++){
+           for(j=0;j<N;j++){
               link_ok[i][j]=x[i][j]*Reliability_probability[j];
             if(link_ok[i][j]==0){
               link_ok[i][j]=1-Reliability_probability[j];
@@ -83,7 +83,7 @@ int main() {
             }
 
         else if(x[i][1]==incidence_matrix[3][1] && x[i][2]==incidence_matrix[3][2] && x[i][4]==incidence_matrix[3][4]){
-          for(j=0;j<5;j++){
+          for(j=0;j<N;j++){
               link_ok[i][j]=x[i][j]*Reliability_probability[j];
             if(link_ok[i][j]==0){
               link_ok[i][j]=1-Reliability_probability[j];
@@ -92,7 +92,7 @@ int main() {
           }
 
         else{
-           for(j=0;j<5;j++){
+           for(j=0;j<N;j++){
           link_ok[i][j]=0;
           }
           }
@@ -100,7 +100,7 @@ int main() {
     
   
 
-printf("\n");
+/*printf("\n");
 
   for(i=0;i<32;i++){
     printf("[%d]",i);
@@ -109,22 +109,15 @@ printf("\n");
     }
     printf("\n");
   }
-
-  for(i=0;i<32;i++){
-    for(j=0;j<5;j++){
+*/
+  
+  for(i=0;i<m;i++){
+    for(j=0;j<N;j++){
       probability_matrix[i]*=link_ok[i][j];
     }
   }
 
-
-  
-  for(i=31;i>=0;i--){
-    printf("[%d] %0.4f\n",i,probability_matrix[i]);
-  }
-
-
-  
-  for (i = 0; i < 32; i++) {
+  for (i = 0; i < m; i++) {
         credibility_probability += probability_matrix[i];
     }
   
